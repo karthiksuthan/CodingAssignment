@@ -21,16 +21,14 @@ const apiCall = async (page: number) => {
       console.log('Network Request config', config);
       const response = await axios(config);
       console.log('API Reponse', response);
-      return {
-        ...response?.data,
-      };
+      return response?.data?.page ;
     } catch (err) {
       const errorResponse = err;
       console.log(pageurl, ' api error ;', errorResponse);
-      return errorResponse;
+      throw err;
     }
   } else {
-    throw 'network error';
+    throw ' no network';
   }
 };
 
