@@ -6,7 +6,7 @@ const API_BASE = Config.API_URL ?? '';
 
 const apiCall = async (page: number) => {
   const netInfo = await NetInfo.fetch();
-  if (netInfo.isConnected) {
+  if (!netInfo.isConnected) {
     let pageurl = API_BASE + page + '.json';
     try {
       const header /*: HeaderType*/ = {
@@ -27,10 +27,10 @@ const apiCall = async (page: number) => {
     } catch (err) {
       const errorResponse = err;
       console.log(pageurl, ' api error ;', errorResponse);
-      return errorResponse;
+      return err;
     }
   } else {
-    throw 'network error';
+    throw ' no network';
   }
 };
 

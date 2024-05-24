@@ -5,9 +5,7 @@ import { ListingScreen } from './screens/Listing'
 
 const AppContainer = () => {
   return (
-    <SafeContainer>
       <ListingScreen />
-    </SafeContainer>
   )
 }
 
