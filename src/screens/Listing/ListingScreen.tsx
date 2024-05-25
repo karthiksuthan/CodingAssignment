@@ -8,13 +8,16 @@ import {ColorPallette} from '../../assets/colors';
 const ListingScreen = () => {
   const [movieList, setMovieList] = useState([]);
   const [totalItems, setTotalItems] = useState<number>(0);
+  const [loadingFlag, setLoading] = useState<boolean>(false);
+  console.log();
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const fetchData = async (pageNum: number = 3) => {
+  const fetchData = async (pageNum: number = 1) => {
     try {
+      setLoading(true);
       const response = await apiCall(pageNum);
       console.log('resp', response);
       if (Array.isArray(response?.['content-items']?.content)) {
@@ -27,12 +30,20 @@ const ListingScreen = () => {
     } catch (error) {
       console.log('error', error);
     }
+    finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
       <CustomHeader />
-      <ListingComponent data={movieList} />
+      <ListingComponent
+        loading={loadingFlag}
+        data={movieList}
+        listSize={totalItems}
+        listEndCallback={fetchData}
+      />
     </>
   );
 };

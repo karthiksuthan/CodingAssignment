@@ -6,17 +6,28 @@ import ListItem from '../ListItem';
 
 type Props = {
   data: any[];
+  listSize: number;
+  listEndCallback: (pageNum: number) => void;
+  loading: boolean;
 };
 
 const renderItem = ({item, index}) => <ListItem item={item} index={index} />;
 
 const ListingComponent = (props: Props) => {
+  const handleScrollEnd = () => {
+    console.log('scrollendFired');
+    if (!props?.loading && props?.data?.length < props?.listSize) {
+      console.log('inside if to call');
+      props?.listEndCallback(props?.data?.length / 20 + 1);
+    }
+  };
   return (
     <View>
       <FlatList
-        data={props?.data}
-        numColumns={3}
         showsVerticalScrollIndicator={false}
+        numColumns={3}
+        horizontal={false}
+        data={props?.data}
         // refreshControl={
         //   <RefreshControl
         //     refreshing={refreshing}
@@ -25,7 +36,6 @@ const ListingComponent = (props: Props) => {
         //     tintColor={'#OOO'}
         //   />
         // }
-        horizontal={false}
         // onScrollBeginDrag={() => setIsScrolling(true)}rr
         // onScrollEndDrag={() => setIsScrolling(false)}
         // scrollEventThrottle={16}
@@ -36,8 +46,8 @@ const ListingComponent = (props: Props) => {
         keyExtractor={(item, index) =>
           item.name + index + item.item?.['poster-image']
         }
-        // onEndReached={}
-        // onEndReachedThreshold={0.5}
+        onEndReached={handleScrollEnd}
+        onEndReachedThreshold={0.9}
         // ListEmptyComponent={<EmptyListView />}
       />
     </View>
