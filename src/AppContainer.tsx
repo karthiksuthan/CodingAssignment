@@ -7,8 +7,8 @@ const AppContainer = () => {
   return (
     <SafeContainer>
       <ListingScreen />
-    </SafeContainer>
+      </SafeContainer>
   )
-}
+} 
 
 export default AppContainer
