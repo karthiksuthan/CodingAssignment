@@ -15,12 +15,14 @@ export const styles = StyleSheet.create({
   imageBackground: {
     height: getDpValue(192),
     justifyContent: 'center',
-    paddingBottom:18,
+    paddingBottom: 18,
   },
   innerWrap: {
     flexDirection: 'row',
     marginHorizontal: getDpValue(30),
     alignItems: 'center',
+    height: '100%',
+    // backgroundColor: 'pink',
   },
   backIcon: {
     height: 18,
@@ -33,13 +35,44 @@ export const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   touchWrap: {
-    padding:5,
+    padding: 5,
   },
   text: {
-    flex:1,
+    flex: 1,
     fontSize: 22,
     color: ColorPallette.white,
     fontFamily: 'TitilliumWeb-Regular',
-    paddingHorizontal:15
+    paddingHorizontal: 15,
+    marginBottom: 5,
+  },
+  inputBox: {
+    backgroundColor: 'white',
+    marginBottom: 15,
+    marginTop: 5,
+    flex: 1,
+    marginHorizontal: 20,
+    borderRadius: 15,
+    paddingHorizontal: 15,
+    lineHeight: 21,
+    fontSize: 17,
+    fontFamily: 'TitilliumWeb-Regular',
+    paddingBottom: 5,
+  },
+  animatedView: {
+    position: 'absolute',
+    // backgroundColor: 'pink',
+    width: '100%',
+    height: '100%',
+    right: 0,
+    
+    transformOrigin: 'right',
+  },
+  animatedContainer: {
+    flex: 1,
+    height: '100%',
+    // backgroundColor: 'teal',
+    flexDirection: 'row',
+    alignItems: 'center',
+    overflow: 'hidden',
   },
 });
