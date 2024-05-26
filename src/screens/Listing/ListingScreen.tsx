@@ -1,12 +1,10 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import styles from './styles';
+import React, {useEffect, useRef, useState} from 'react';
 import apiCall from '../../apiServices/apiClient';
 import {CustomHeader, ListingComponent} from '../../components';
-import {ColorPallette} from '../../assets/colors';
 import {getSearchFilteredArray} from '../../utils/searchUtils';
 import {movieListItemType} from '../../types';
-import {LOADING_STATUS} from '../../constants/Enums';
+import { LOADING_STATUS } from '../../constants/Enums';
+import { hideSplashScreen } from '../../utils/layoutUtils';
 
 const ListingScreen = () => {
   const [movieList, setMovieList] = useState<Array<movieListItemType>>([]);
@@ -15,6 +13,7 @@ const ListingScreen = () => {
   const [loadingFlag, setLoading] = useState<number>(0);
   const [headerText, setHeaderText] = useState<string>('');
   const [searchText, setSearchText] = useState<string>('');
+  const initialLoad = useRef(true);
 
   useEffect(() => {
     fetchData();
@@ -24,7 +23,6 @@ const ListingScreen = () => {
     try {
       setLoading(LOADING_STATUS.loading);
       const response = await apiCall(pageNum);
-      console.log('resp', response);
       if (response.length) {
         let tempList = response;
         setMovieList(oldArr =>
@@ -35,8 +33,13 @@ const ListingScreen = () => {
       }
       setLoading(LOADING_STATUS.loadingSuccess);
     } catch (error) {
-      console.log('error', error);
       setLoading(LOADING_STATUS.loadingError);
+    }
+    finally {
+      if (initialLoad.current) {
+        initialLoad.current = false;
+        hideSplashScreen();
+      }
     }
   };
 

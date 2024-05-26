@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
   contentContainer: {
     flexGrow:1,
     gap: getDpValue(90),
+    paddingBottom:30
   },
   listWrap: {
     flex: 1,

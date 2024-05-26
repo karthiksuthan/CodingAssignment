@@ -3,6 +3,7 @@ import React, {ReactNode} from 'react';
 import {
   SafeAreaProvider,
   SafeAreaProviderProps,
+  SafeAreaView,
 } from 'react-native-safe-area-context';
 import {ColorPallette} from '../../assets/colors';
 
@@ -14,7 +15,7 @@ const SafeContainer = ({children}: SafeAreaProviderProps) => {
         barStyle={'light-content'}
         backgroundColor={ColorPallette.black}
       />
-      {children}
+      <SafeAreaView edges={{top:'maximum'}} style={{flex:1}}>{children}</SafeAreaView>
     </SafeAreaProvider>
   );
 };

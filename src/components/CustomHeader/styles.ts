@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
     lineHeight: 21,
     fontSize: 17,
     fontFamily: 'TitilliumWeb-Regular',
-    paddingBottom: 5,
+    // paddingBottom: 5,
   },
   animatedView: {
     position: 'absolute',

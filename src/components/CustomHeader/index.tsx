@@ -15,6 +15,7 @@ import {styles} from './styles';
 import {BackIconImage, NavBar, SearchIconImage} from '../../assets/images';
 import CustomAnimatedHeader from './CustomAnimatedHeader';
 import Toast from 'react-native-simple-toast';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = {
   title: string;
@@ -50,7 +51,7 @@ const CustomHeader = (props: Props) => {
   const toggleSearchFlag = () => setSearchActive(false);
 
   return (
-    <View style={styles.conatiner}>
+    <SafeAreaView edges={{top:'maximum'}} style={styles.conatiner}>
       <ImageBackground source={NavBar} style={styles.imageBackground}>
         <View style={styles.innerWrap}>
           <TouchableOpacity onPress={onBackPress} style={styles.touchWrap}>
@@ -67,7 +68,7 @@ const CustomHeader = (props: Props) => {
           </TouchableOpacity>
         </View>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 };
 
