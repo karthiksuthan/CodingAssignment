@@ -1,6 +1,7 @@
 import NetInfo from '@react-native-community/netinfo';
 import axios from 'axios';
 import Config from 'react-native-config';
+import Toast from 'react-native-simple-toast';
 
 const API_BASE = Config.API_URL ?? '';
 
@@ -21,14 +22,18 @@ const apiCall = async (page: number) => {
       console.log('Network Request config', config);
       const response = await axios(config);
       console.log('API Reponse', response);
-      return response?.data?.page ;
+      if (Array.isArray(response?.data?.page?.['content-items']?.content))
+        return response?.data?.page?.['content-items']?.content;
+      else throw 'malformed data';
     } catch (err) {
       const errorResponse = err;
       console.log(pageurl, ' api error ;', errorResponse);
+      Toast.show('Error while fetching data', 3000);
       throw err;
     }
   } else {
-    throw ' no network';
+      Toast.show('No network access', 3000);
+      throw ' no network';
   }
 };
 

@@ -1,5 +1,7 @@
 {
     "files.autoSave": "afterDelay",
     "editor.formatOnPaste": true,
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
+    "prettier.printWidth": 100,
+    "files.autoSaveDelay": 10000
 }
