@@ -2,15 +2,16 @@ import {Dimensions, StyleSheet} from 'react-native';
 import {getDpValue} from '../../utils/layoutUtils';
 import {FontVar} from '../../assets/fonts/FontSize';
 import {ColorPallette} from '../../assets/colors';
+import { Dynamic_Layout_Sizes } from '../../constants/LayoutSize';
 
 export const styles = StyleSheet.create({
   container: {
     marginLeft: getDpValue(30),
     // backgroundColor: 'pink',
-    width: (Dimensions.get('screen').width - getDpValue(30 * 4)) / 3,
+    width: Dynamic_Layout_Sizes.posterwidth,
   },
   imgWrap: {
-    width: (Dimensions.get('screen').width - getDpValue(30 * 4)) / 3,
+    width: Dynamic_Layout_Sizes.posterwidth,
     aspectRatio: 0.669,
     // backgroundColor: 'blue',
   },

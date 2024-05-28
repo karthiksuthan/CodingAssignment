@@ -27,6 +27,16 @@ const CustomHeader = (props: Props) => {
   const [isSearchActive, setSearchActive] = useState<boolean>(false);
   const isSecondBackPress = useRef<boolean>(false);
 
+  useEffect(() => {
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      onBackPress,
+    );
+
+    return () => backHandler.remove();
+  }, [isSearchActive]);
+
   const onSearchPress = () => {
     if(!isSearchActive)
       setSearchActive(true)
@@ -46,6 +56,7 @@ const CustomHeader = (props: Props) => {
         isSecondBackPress.current = false;
       }, 3500);
     }
+    return true
   };
 
   const toggleSearchFlag = () => setSearchActive(false);
@@ -58,6 +69,7 @@ const CustomHeader = (props: Props) => {
             <Image source={BackIconImage} style={styles.backIcon} />
           </TouchableOpacity>
           <CustomAnimatedHeader
+            title={props?.title}
             searchText={props?.searchKey}
             isSearchActive={isSearchActive}
             onSearchTextChange={props?.onSearchTextChange}

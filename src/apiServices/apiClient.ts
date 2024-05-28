@@ -19,16 +19,20 @@ const apiCall = async (page: number) => {
         url: pageurl,
         headers: header,
       };
-      // console.log('Network Request config', config);
+      console.log('Network Request config', config);
       const response = await axios(config);
-      // console.log('API Reponse', response);
+      console.log('API Reponse', response);
       if (Array.isArray(response?.data?.page?.['content-items']?.content))
-        return response?.data?.page?.['content-items']?.content;
+        return {
+          content: response?.data?.page?.['content-items']?.content,
+          'total-content-items': response?.data?.page?.['total-content-items'],
+          title:response?.data?.page?.title,
+        };
       else throw 'malformed data';
     } catch (err) {
       const errorResponse = err;
-      // console.log(pageurl, ' api error ;', errorResponse);
-      Toast.show('Error while fetching data', 3000);
+      console.log(pageurl, ' api error ;', errorResponse);
+      Toast.show('Error while fetching data', 2000);
       throw err;
     }
   } else {

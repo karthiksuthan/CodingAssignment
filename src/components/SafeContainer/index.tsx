@@ -9,7 +9,7 @@ import {ColorPallette} from '../../assets/colors';
 
 const SafeContainer = ({children}: SafeAreaProviderProps) => {
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider style={{backgroundColor:ColorPallette.black}}>
       <StatusBar
         animated
         barStyle={'light-content'}

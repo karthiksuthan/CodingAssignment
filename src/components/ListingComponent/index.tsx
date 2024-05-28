@@ -1,5 +1,5 @@
 import {FlatList, RefreshControl, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {styles} from './styles';
 import ListItem from '../ListItem';
 import ListEmpty from './ListEmpty';
@@ -20,19 +20,21 @@ const renderItem = ({
 }: {
   item: movieListItemType;
   index: number;
-}) => <ListItem item={item} index={index} />;
+}) => <ListItem name={item?.name} image={item?.['poster-image']} index={index} />;
 
 const ListingComponent = (props: Props) => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  let hasUserScrolled = false;
 
-  const handleScrollEnd = () => {
-    console.log('scrollendFired');
+  const handleScrollEnd = async() => {
+    console.log('scrollendFired',props?.data?.length,hasUserScrolled);
     if (
+      hasUserScrolled &&
       props?.loading !== LOADING_STATUS.loading &&
       props?.data?.length < props?.listSize
     ) {
-      // console.log('inside if to call');
-      props?.listEndCallback(props?.data?.length / 20 + 1);
+      console.log('inside if to call');
+      await props?.listEndCallback(props?.data?.length / 20 + 1);
     }
   };
 
@@ -41,6 +43,11 @@ const ListingComponent = (props: Props) => {
     await props?.listEndCallback(1);
     setRefreshing(false);
   };
+
+  const userScrolled = () => { 
+    console.log('fired');
+    hasUserScrolled = true;
+   }
 
   return (
     <View style={styles.listWrap}>
@@ -53,17 +60,15 @@ const ListingComponent = (props: Props) => {
         numColumns={3}
         horizontal={false}
         data={props?.data}
-        refreshControl={
+        refreshControl={!props?.data?.length ?
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            colors={['red']}
-            tintColor={'blue'}
-          />
+            colors={['red','white']}
+            tintColor={'red'}
+          /> : undefined 
         }
-        // onScrollBeginDrag={() => setIsScrolling(true)}rr
-        // onScrollEndDrag={() => setIsScrolling(false)}
-        // scrollEventThrottle={16}
+        onScrollBeginDrag={userScrolled}
         style={styles.listStyle}
         contentContainerStyle={styles.contentContainer}
         columnWrapperStyle={styles.columnWrap}

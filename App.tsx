@@ -1,17 +1,8 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import AppContainer from './src/AppContainer';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+//App structured like how we would attemot a real world project , 
+// hence may seem seem OVERKILL for trivial task
 
 function App(): React.JSX.Element {
   return <AppContainer />

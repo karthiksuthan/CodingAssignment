@@ -23,8 +23,9 @@ const ListingScreen = () => {
     try {
       setLoading(LOADING_STATUS.loading);
       const response = await apiCall(pageNum);
-      if (response.length) {
-        let tempList = response;
+      // console.log('resp',response)
+      if (response?.content?.length) {
+        let tempList = response?.content;
         setMovieList(oldArr =>
           pageNum === 1 ? tempList : [...oldArr, ...tempList],
         );
@@ -34,6 +35,7 @@ const ListingScreen = () => {
       setLoading(LOADING_STATUS.loadingSuccess);
     } catch (error) {
       setLoading(LOADING_STATUS.loadingError);
+      
     }
     finally {
       if (initialLoad.current) {

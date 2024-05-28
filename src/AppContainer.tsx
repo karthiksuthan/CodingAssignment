@@ -1,12 +1,13 @@
 import React from 'react';
 import {SafeContainer} from './components';
 import {ListingScreen} from './screens/Listing';
+import AppNavigator from './Navigation/router';
 
 const AppContainer = () => {
   return (
     <>
       <SafeContainer>
-        <ListingScreen />
+        <AppNavigator />
       </SafeContainer>
     </>
   );

@@ -4,6 +4,7 @@ import {TEXT_STRINGS} from '../../constants/String';
 import {styles} from './styles';
 
 type Props = {
+  title: string;
   searchText: string;
   isSearchActive: boolean;
   onSearchTextChange: (text: string) => void;
@@ -55,7 +56,7 @@ const CustomAnimatedHeader = (props: Props) => {
     <View style={styles.animatedContainer}>
       {!searchActive ? (
         <Animated.Text style={styles.text}>
-          {TEXT_STRINGS.headerPlaceholder}
+          {props?.title ?? ''}
         </Animated.Text>
       ) : (
         <Animated.View
