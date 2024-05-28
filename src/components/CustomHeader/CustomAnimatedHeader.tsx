@@ -2,16 +2,9 @@ import {Animated, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {TEXT_STRINGS} from '../../constants/String';
 import {styles} from './styles';
+import { AnimatedHeaderProps } from '../../types';
 
-type Props = {
-  title: string;
-  searchText: string;
-  isSearchActive: boolean;
-  onSearchTextChange: (text: string) => void;
-  callback: () => void;
-};
-
-const CustomAnimatedHeader = (props: Props) => {
+const CustomAnimatedHeader = (props: AnimatedHeaderProps) => { //animated component for search box and header transition
   const [searchActive, setSearchActive] = useState<boolean>(false);
   const inputBoxRef = useRef<TextInput>(null);
   const AnimValue = useRef(new Animated.Value(0)).current;
@@ -55,19 +48,17 @@ const CustomAnimatedHeader = (props: Props) => {
   return (
     <View style={styles.animatedContainer}>
       {!searchActive ? (
-        <Animated.Text style={styles.text}>
-          {props?.title ?? ''}
-        </Animated.Text>
+        <Animated.Text style={styles.text}>{props?.title ?? ''}</Animated.Text>
       ) : (
         <Animated.View
           style={[styles.animatedView, {transform: [{scaleX: AnimValue}]}]}>
-            <TextInput
-              value={props?.searchText}
+          <TextInput
+            value={props?.searchText}
             ref={inputBoxRef}
             blurOnSubmit
             style={styles.inputBox}
-              onBlur={handleInputBlur}
-              onChangeText={props?.onSearchTextChange}
+            onBlur={handleInputBlur}
+            onChangeText={props?.onSearchTextChange}
           />
         </Animated.View>
       )}

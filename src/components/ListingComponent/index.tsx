@@ -5,14 +5,8 @@ import ListItem from '../ListItem';
 import ListEmpty from './ListEmpty';
 import {TEXT_STRINGS} from '../../constants/String';
 import {LOADING_STATUS} from '../../constants/Enums';
-import {movieListItemType} from '../../types';
-
-type Props = {
-  data: any[];
-  listSize: number;
-  listEndCallback: (pageNum: number) => Promise<void>;
-  loading: 1 | 2 | 3;
-};
+import {ListingComponentProps, movieListItemType} from '../../types';
+import { ColorPallette } from '../../assets/colors';
 
 const renderItem = ({
   item,
@@ -22,12 +16,12 @@ const renderItem = ({
   index: number;
 }) => <ListItem name={item?.name} image={item?.['poster-image']} index={index} />;
 
-const ListingComponent = (props: Props) => {
+const ListingComponent = (props: ListingComponentProps) => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   let hasUserScrolled = false;
 
-  const handleScrollEnd = async() => {
-    console.log('scrollendFired',props?.data?.length,hasUserScrolled);
+  const handleScrollEnd = async () => {
+    console.log('scrollendFired', props?.data?.length, hasUserScrolled);
     if (
       hasUserScrolled &&
       props?.loading !== LOADING_STATUS.loading &&
@@ -44,34 +38,36 @@ const ListingComponent = (props: Props) => {
     setRefreshing(false);
   };
 
-  const userScrolled = () => { 
+  const userScrolled = () => {
     console.log('fired');
     hasUserScrolled = true;
-   }
+  };
 
   return (
     <View style={styles.listWrap}>
       <FlatList
         renderItem={renderItem}
         keyExtractor={(item, index) =>
-          item.name + index + item.item?.['poster-image']
+          item.name + index + item?.['poster-image']
         }
         showsVerticalScrollIndicator={false}
         numColumns={3}
         horizontal={false}
         data={props?.data}
-        refreshControl={!props?.data?.length ?
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            colors={['red','white']}
-            tintColor={'red'}
-          /> : undefined 
+        refreshControl={
+          //refresh control only when list empty due to network errors
+          !props?.data?.length ? (
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              colors={[ColorPallette.red, ColorPallette.white]}
+              tintColor={ColorPallette.red}
+            />
+          ) : undefined
         }
         onScrollBeginDrag={userScrolled}
         style={styles.listStyle}
         contentContainerStyle={styles.contentContainer}
-        columnWrapperStyle={styles.columnWrap}
         onEndReached={handleScrollEnd}
         onEndReachedThreshold={0.7}
         ListEmptyComponent={

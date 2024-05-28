@@ -2,7 +2,7 @@ export const BackIconImage = require('./Back.png');
 export const NavBar = require('./nav_bar.png');
 export const SearchIconImage = require('./search.png');
 export const PlaceholderPoster = require('./placeholder_for_missing_posters.png');
-export const Posters = {
+export const Posters:Record<string,any> = {
   'poster1.jpg': require('./poster1.jpg'),
   'poster2.jpg': require('./poster2.jpg'),
   'poster3.jpg': require('./poster3.jpg'),

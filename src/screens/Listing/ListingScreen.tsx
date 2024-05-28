@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import apiCall from '../../apiServices/apiClient';
 import {CustomHeader, ListingComponent} from '../../components';
 import {getSearchFilteredArray} from '../../utils/searchUtils';
@@ -11,7 +11,7 @@ const ListingScreen = () => {
   const [searchedList, setSearchedList] = useState<Array<movieListItemType>>([],);
   const [totalItems, setTotalItems] = useState<number>(0);
   const [loadingFlag, setLoading] = useState<number>(0);
-  const [headerText, setHeaderText] = useState<string>('');
+  const [headerText, setHeaderText] = useState<string>(''); // dynamically set header from API
   const [searchText, setSearchText] = useState<string>('');
   const initialLoad = useRef(true);
 
@@ -45,13 +45,13 @@ const ListingScreen = () => {
     }
   };
 
-  const handleSearch = (text: string) => {
+  const handleSearch = useCallback((text: string) => {
     setSearchText(text);
     if (text) {
       const filteredArray = getSearchFilteredArray(text, movieList);
       setSearchedList(filteredArray);
     }
-  };
+  },[]);
 
   return (
     <>

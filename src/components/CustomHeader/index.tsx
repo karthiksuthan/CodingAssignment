@@ -9,26 +9,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {memo, useEffect, useRef, useState} from 'react';
 import {TEXT_STRINGS} from '../../constants/String';
 import {styles} from './styles';
 import {BackIconImage, NavBar, SearchIconImage} from '../../assets/images';
 import CustomAnimatedHeader from './CustomAnimatedHeader';
 import Toast from 'react-native-simple-toast';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomHeaderProps } from '../../types';
 
-type Props = {
-  title: string;
-  onSearchTextChange: (text: string) => void;
-  searchKey: string;
-};
 
-const CustomHeader = (props: Props) => {
+const CustomHeader = (props: CustomHeaderProps) => {
   const [isSearchActive, setSearchActive] = useState<boolean>(false);
   const isSecondBackPress = useRef<boolean>(false);
 
-  useEffect(() => {
-
+  useEffect(() => { //handle hardware back press
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       onBackPress,
@@ -84,4 +79,4 @@ const CustomHeader = (props: Props) => {
   );
 };
 
-export default CustomHeader;
+export default memo(CustomHeader);

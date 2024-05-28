@@ -2,14 +2,15 @@ import {Dimensions, Image, Platform, StyleSheet, Text, View, useWindowDimensions
 import React, {memo, useState} from 'react';
 import {PlaceholderPoster, Posters} from '../../assets/images';
 import {styles} from './styles';
-import { movieListItemType } from '../../types';
+import { ListItemProps, movieListItemType } from '../../types';
 import { getDpValue } from '../../utils/layoutUtils';
 
-const ListItem = ({ index, name, image }: { index: number; name: string; image:string}) => {
+const ListItem = ({ index, name, image }: ListItemProps) => {
   const PosterWidth = (useWindowDimensions().width - getDpValue(30 * 4)) / 3;
   const [isLongText, setLongText] = useState<boolean>(false);
   const [toggle, setToggle] = useState<boolean>(false);
-  const checkTextLength = (e: any) => {
+
+  const checkTextLength = (e: any) => { // identify if text is multiline and make text touchable
     if (name?.length > 16) console.log('/'.repeat(100), e.nativeEvent);
     if (
       Platform.OS == 'android'
@@ -19,9 +20,11 @@ const ListItem = ({ index, name, image }: { index: number; name: string; image:s
       setLongText(true);
     } else setLongText(false);
   };
+
   const handlePress = () => {
     if (isLongText) setToggle(old => !old);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.imgWrap}>

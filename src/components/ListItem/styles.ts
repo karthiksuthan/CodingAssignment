@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   },
   name: {
     color: ColorPallette.white,
-    fontSize: 15,
+    fontSize: FontVar.fontsize_15,
     fontFamily: 'TitilliumWeb-Light',
     marginTop: getDpValue(24),
     marginHorizontal: 2,

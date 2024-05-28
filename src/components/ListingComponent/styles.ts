@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {getDpValue} from '../../utils/layoutUtils';
 import {ColorPallette} from '../../assets/colors';
+import { FontVar } from '../../assets/fonts/FontSize';
 
 export const styles = StyleSheet.create({
   listStyle: {},
@@ -15,7 +16,7 @@ export const styles = StyleSheet.create({
   },
   emptyText: {
     color: ColorPallette.white,
-    fontSize: 17,
+    fontSize: FontVar.fontsize_17,
     fontFamily: 'TitilliumWeb-Regular',
     textAlign: 'center',
     padding: 50,
