@@ -32,5 +32,5 @@ Please find arbitary decisions made by me as a developer in completing the assig
 4. Errors and warnings are all shown as toast.
 5. A splashscreen added to show during initial page load
 ### PROJECT STRUCTURE
-![alt text](screenshot.png)
+![plot](Screenshot.png)
 
